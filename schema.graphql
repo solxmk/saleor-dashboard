@@ -351,7 +351,9 @@ type App implements Node & ObjectWithMetadata {
   """JWT token used to authenticate by thridparty app."""
   accessToken: String
 
-  """New in Saleor 3.1. App's dashboard extensions."""
+  """
+  New in Saleor 3.1. App's dashboard extensions. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   extensions: [AppExtension!]!
 }
 
@@ -1592,7 +1594,7 @@ input CategorySortingInput {
   direction: OrderDirection!
 
   """
-  Specifies the channel in which to sort the data. 
+  Specifies the channel in which to sort the data.
   
   DEPRECATED: this field will be removed in Saleor 4.0. Use root-level channel argument instead.
   """
@@ -1813,7 +1815,9 @@ type Checkout implements Node & ObjectWithMetadata {
   """Shipping methods that can be used with this checkout."""
   shippingMethods: [ShippingMethod]!
 
-  """New in Saleor 3.1. Collection points that can be used for this order."""
+  """
+  New in Saleor 3.1. Collection points that can be used for this order. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   availableCollectionPoints: [Warehouse!]!
 
   """List of available payment gateways."""
@@ -1847,7 +1851,9 @@ type Checkout implements Node & ObjectWithMetadata {
   """The shipping method related with checkout."""
   shippingMethod: ShippingMethod @deprecated(reason: "This field will be removed in Saleor 4.0. Use `deliveryMethod` instead.")
 
-  """New in Saleor 3.1. The delivery method selected for this checkout."""
+  """
+  New in Saleor 3.1. The delivery method selected for this checkout. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   deliveryMethod: DeliveryMethod
 
   """The price of the checkout before shipping, with taxes included."""
@@ -1921,7 +1927,7 @@ type CheckoutCreate {
   """
   Whether the checkout was created or the current active one was returned. Refer to checkoutLinesAdd and checkoutLinesUpdate to merge a cart with an active checkout.
   """
-  created: Boolean @deprecated(reason: "This field will be removed in Saleor 4.0. Always returns `True`.")
+  created: Boolean @deprecated(reason: "This field will be removed in Saleor 4.0. Always returns `true`.")
   checkoutErrors: [CheckoutError!]! @deprecated(reason: "This field will be removed in Saleor 4.0. Use `errors` field instead.")
   errors: [CheckoutError!]!
   checkout: Checkout
@@ -1968,7 +1974,7 @@ type CheckoutCustomerDetach {
 }
 
 """
-New in Saleor 3.1. Updates the delivery method (shipping method or pick up point) of the checkout.
+New in Saleor 3.1. Updates the delivery method (shipping method or pick up point) of the checkout. Note: this feature is in a preview state and can be subject to changes at later point.
 """
 type CheckoutDeliveryMethodUpdate {
   """An updated checkout."""
@@ -2472,7 +2478,7 @@ input CollectionSortingInput {
   direction: OrderDirection!
 
   """
-  Specifies the channel in which to sort the data. 
+  Specifies the channel in which to sort the data.
   
   DEPRECATED: this field will be removed in Saleor 4.0. Use root-level channel argument instead.
   """
@@ -2963,6 +2969,7 @@ input CustomerFilterInput {
   placedOrders: DateRangeInput
   search: String
   metadata: [MetadataFilter]
+  updatedAt: DateTimeRangeInput
 }
 
 input CustomerInput {
@@ -3049,7 +3056,7 @@ type DeletePrivateMetadata {
 }
 
 """
-Represents a delivery method chosen for the checkout. `Warehouse` type is used when checkout is marked as "click and collect" and `ShippingMethod` otherwise.
+New in Saleor 3.1. Represents a delivery method chosen for the checkout. `Warehouse` type is used when checkout is marked as "click and collect" and `ShippingMethod` otherwise. Note: this feature is in a preview state and can be subject to changes at later point.
 """
 union DeliveryMethod = Warehouse | ShippingMethod
 
@@ -3592,14 +3599,10 @@ input ExportFileFilterInput {
 }
 
 enum ExportFileSortField {
-  """Sort export file by status."""
   STATUS
-
-  """Sort export file by created at."""
   CREATED_AT
-
-  """Sort export file by updated at."""
   UPDATED_AT
+  LAST_MODIFIED_AT
 }
 
 input ExportFileSortingInput {
@@ -3610,7 +3613,9 @@ input ExportFileSortingInput {
   field: ExportFileSortField!
 }
 
-"""New in Saleor 3.1. Export gift cards to csv file."""
+"""
+New in Saleor 3.1. Export gift cards to csv file. Note: this feature is in a preview state and can be subject to changes at later point.
+"""
 type ExportGiftCards {
   """
   The newly created export file job which is responsible for export data.
@@ -3987,38 +3992,54 @@ type GiftCard implements Node & ObjectWithMetadata {
   code: String!
   created: DateTime!
 
-  """New in Saleor 3.1. The user who bought or issued a gift card."""
+  """
+  New in Saleor 3.1. The user who bought or issued a gift card. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   createdBy: User
 
-  """New in Saleor 3.1. The customer who used a gift card."""
+  """
+  New in Saleor 3.1. The customer who used a gift card. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   usedBy: User
 
   """
-  New in Saleor 3.1. Email address of the user who bought or issued gift card.
+  New in Saleor 3.1. Email address of the user who bought or issued gift card. Note: this feature is in a preview state and can be subject to changes at later point.
   """
   createdByEmail: String
 
-  """New in Saleor 3.1. Email address of the customer who used a gift card."""
+  """
+  New in Saleor 3.1. Email address of the customer who used a gift card. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   usedByEmail: String
   lastUsedOn: DateTime
   expiryDate: Date
 
-  """New in Saleor 3.1. App which created the gift card."""
+  """
+  New in Saleor 3.1. App which created the gift card. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   app: App
 
-  """New in Saleor 3.1. Related gift card product."""
+  """
+  New in Saleor 3.1. Related gift card product. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   product: Product
 
-  """New in Saleor 3.1. List of events associated with the gift card."""
+  """
+  New in Saleor 3.1. List of events associated with the gift card. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   events(
     """Filtering options for gift card events."""
     filter: GiftCardEventFilterInput
   ): [GiftCardEvent!]!
 
-  """New in Saleor 3.1. The gift card tag."""
+  """
+  New in Saleor 3.1. The gift card tag. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   tags: [GiftCardTag!]!
 
-  """{ADDED_IN_31} Slug of the channel where the gift card was bought."""
+  """
+  New in Saleor 3.1. Slug of the channel where the gift card was bought. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   boughtInChannel: String
   isActive: Boolean!
   initialBalance: Money
@@ -4042,7 +4063,9 @@ type GiftCardActivate {
   errors: [GiftCardError!]!
 }
 
-"""New in Saleor 3.1. Adds note to the gift card."""
+"""
+New in Saleor 3.1. Adds note to the gift card. Note: this feature is in a preview state and can be subject to changes at later point.
+"""
 type GiftCardAddNote {
   """Gift card with the note added."""
   giftCard: GiftCard
@@ -4057,14 +4080,18 @@ input GiftCardAddNoteInput {
   message: String!
 }
 
-"""New in Saleor 3.1. Activate gift cards."""
+"""
+New in Saleor 3.1. Activate gift cards. Note: this feature is in a preview state and can be subject to changes at later point.
+"""
 type GiftCardBulkActivate {
   """Returns how many objects were affected."""
   count: Int!
   errors: [GiftCardError!]!
 }
 
-"""New in Saleor 3.1. Create gift cards."""
+"""
+New in Saleor 3.1. Create gift cards. Note: this feature is in a preview state and can be subject to changes at later point.
+"""
 type GiftCardBulkCreate {
   """Returns how many objects were created."""
   count: Int!
@@ -4091,14 +4118,18 @@ input GiftCardBulkCreateInput {
   isActive: Boolean!
 }
 
-"""New in Saleor 3.1. Deactivate gift cards."""
+"""
+New in Saleor 3.1. Deactivate gift cards. Note: this feature is in a preview state and can be subject to changes at later point.
+"""
 type GiftCardBulkDeactivate {
   """Returns how many objects were affected."""
   count: Int!
   errors: [GiftCardError!]!
 }
 
-"""New in Saleor 3.1. Delete gift cards."""
+"""
+New in Saleor 3.1. Delete gift cards. Note: this feature is in a preview state and can be subject to changes at later point.
+"""
 type GiftCardBulkDelete {
   """Returns how many objects were affected."""
   count: Int!
@@ -4130,10 +4161,14 @@ type GiftCardCreate {
 }
 
 input GiftCardCreateInput {
-  """New in Saleor 3.1. The gift card tags to add."""
+  """
+  New in Saleor 3.1. The gift card tags to add. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   addTags: [String!]
 
-  """New in Saleor 3.1. The gift card expiry date."""
+  """
+  New in Saleor 3.1. The gift card expiry date. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   expiryDate: Date
 
   """
@@ -4157,11 +4192,13 @@ input GiftCardCreateInput {
   userEmail: String
 
   """
-  New in Saleor 3.1. Slug of a channel from which the email should be sent.
+  New in Saleor 3.1. Slug of a channel from which the email should be sent. Note: this feature is in a preview state and can be subject to changes at later point.
   """
   channel: String
 
-  """New in Saleor 3.1. Determine if gift card is active."""
+  """
+  New in Saleor 3.1. Determine if gift card is active. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   isActive: Boolean!
 
   """
@@ -4171,7 +4208,9 @@ input GiftCardCreateInput {
   """
   code: String
 
-  """New in Saleor 3.1. The gift card note from the staff member."""
+  """
+  New in Saleor 3.1. The gift card note from the staff member. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   note: String
 }
 
@@ -4183,7 +4222,9 @@ type GiftCardDeactivate {
   errors: [GiftCardError!]!
 }
 
-"""New in Saleor 3.1. Delete gift card."""
+"""
+New in Saleor 3.1. Delete gift card. Note: this feature is in a preview state and can be subject to changes at later point.
+"""
 type GiftCardDelete {
   giftCardErrors: [GiftCardError!]! @deprecated(reason: "This field will be removed in Saleor 4.0. Use `errors` field instead.")
   errors: [GiftCardError!]!
@@ -4218,7 +4259,9 @@ enum GiftCardErrorCode {
   DUPLICATED_INPUT_ITEM
 }
 
-"""New in Saleor 3.1. History log of the gift card."""
+"""
+New in Saleor 3.1. History log of the gift card. Note: this feature is in a preview state and can be subject to changes at later point.
+"""
 type GiftCardEvent implements Node {
   id: ID!
 
@@ -4310,7 +4353,9 @@ input GiftCardFilterInput {
   code: String
 }
 
-"""New in Saleor 3.1. Resend a gift card."""
+"""
+New in Saleor 3.1. Resend a gift card. Note: this feature is in a preview state and can be subject to changes at later point.
+"""
 type GiftCardResend {
   """Gift card which has been sent."""
   giftCard: GiftCard
@@ -4397,7 +4442,9 @@ input GiftCardSortingInput {
   field: GiftCardSortField!
 }
 
-"""New in Saleor 3.1. The gift card tag."""
+"""
+New in Saleor 3.1. The gift card tag. Note: this feature is in a preview state and can be subject to changes at later point.
+"""
 type GiftCardTag implements Node {
   id: ID!
   name: String!
@@ -4432,10 +4479,14 @@ type GiftCardUpdate {
 }
 
 input GiftCardUpdateInput {
-  """New in Saleor 3.1. The gift card tags to add."""
+  """
+  New in Saleor 3.1. The gift card tags to add. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   addTags: [String!]
 
-  """New in Saleor 3.1. The gift card expiry date."""
+  """
+  New in Saleor 3.1. The gift card expiry date. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   expiryDate: Date
 
   """
@@ -4452,10 +4503,14 @@ input GiftCardUpdateInput {
   """
   endDate: Date
 
-  """New in Saleor 3.1. The gift card tags to remove."""
+  """
+  New in Saleor 3.1. The gift card tags to remove. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   removeTags: [String!]
 
-  """New in Saleor 3.1. The gift card balance amount."""
+  """
+  New in Saleor 3.1. The gift card balance amount. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   balanceAmount: PositiveDecimal
 }
 
@@ -4612,12 +4667,6 @@ type InvoiceUpdate {
   invoice: Invoice
 }
 
-"""
-Allows use of a JSON String for input / output from the GraphQL schema.
-
-Use of this type is *not recommended* as you lose the benefits of having a defined, static
-schema (one of the key benefits of GraphQL).
-"""
 scalar JSONString
 
 interface Job {
@@ -5843,6 +5892,7 @@ enum MetadataErrorCode {
   INVALID
   NOT_FOUND
   REQUIRED
+  NOT_UPDATED
 }
 
 input MetadataFilter {
@@ -6075,7 +6125,7 @@ type Mutation {
 
   """Creates/updates translations for a shipping method."""
   shippingPriceTranslate(
-    """('ShippingMethodType ID or ShippingMethodTranslatableContent ID.',)"""
+    """ShippingMethodType ID or ShippingMethodTranslatableContent ID."""
     id: ID!
     input: ShippingPriceTranslationInput!
 
@@ -6556,7 +6606,7 @@ type Mutation {
   ): ProductVariantReorderAttributeValues
 
   """
-  New in Saleor 3.1. Deactivates product variant preorder.It changes all preorder allocation into regular allocation.
+  New in Saleor 3.1. Deactivates product variant preorder. It changes all preorder allocation into regular allocation. Note: this feature is in a preview state and can be subject to changes at later point.
   """
   productVariantPreorderDeactivate(
     """ID of a variant which preorder should be deactivated."""
@@ -6622,6 +6672,34 @@ type Mutation {
     """Fields required to check payment balance."""
     input: PaymentCheckBalanceInput!
   ): PaymentCheckBalance
+
+  """
+  Note: this feature is in a preview state and can be subject to changes at later point. Create payment for checkout or order.
+  """
+  paymentCreate(
+    """The ID of the checkout or order."""
+    id: ID!
+
+    """Input data required to create a new payment object."""
+    payment: PaymentCreateInput!
+
+    """Data that defines a payment transaction."""
+    transaction: TransactionInput
+  ): PaymentCreate
+
+  """
+  Note: this feature is in a preview state and can be subject to changes at later point. Create payment for checkout or order.
+  """
+  paymentUpdate(
+    """The ID of the payment."""
+    id: ID!
+
+    """Input data required to create a new payment object."""
+    payment: PaymentUpdateInput
+
+    """Data that defines a payment transaction."""
+    transaction: TransactionInput
+  ): PaymentUpdate
 
   """Creates a new page."""
   pageCreate(
@@ -7153,7 +7231,9 @@ type Mutation {
     input: GiftCardCreateInput!
   ): GiftCardCreate
 
-  """New in Saleor 3.1. Delete gift card."""
+  """
+  New in Saleor 3.1. Delete gift card. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   giftCardDelete(
     """ID of the gift card to delete."""
     id: ID!
@@ -7174,13 +7254,17 @@ type Mutation {
     input: GiftCardUpdateInput!
   ): GiftCardUpdate
 
-  """New in Saleor 3.1. Resend a gift card."""
+  """
+  New in Saleor 3.1. Resend a gift card. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   giftCardResend(
     """Fields required to resend a gift card."""
     input: GiftCardResendInput!
   ): GiftCardResend
 
-  """New in Saleor 3.1. Adds note to the gift card."""
+  """
+  New in Saleor 3.1. Adds note to the gift card. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   giftCardAddNote(
     """ID of the gift card to add a note for."""
     id: ID!
@@ -7189,25 +7273,33 @@ type Mutation {
     input: GiftCardAddNoteInput!
   ): GiftCardAddNote
 
-  """New in Saleor 3.1. Create gift cards."""
+  """
+  New in Saleor 3.1. Create gift cards. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   giftCardBulkCreate(
     """Fields required to create gift cards."""
     input: GiftCardBulkCreateInput!
   ): GiftCardBulkCreate
 
-  """New in Saleor 3.1. Delete gift cards."""
+  """
+  New in Saleor 3.1. Delete gift cards. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   giftCardBulkDelete(
     """List of gift card IDs to delete."""
     ids: [ID]!
   ): GiftCardBulkDelete
 
-  """New in Saleor 3.1. Activate gift cards."""
+  """
+  New in Saleor 3.1. Activate gift cards. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   giftCardBulkActivate(
     """List of gift card IDs to activate."""
     ids: [ID]!
   ): GiftCardBulkActivate
 
-  """New in Saleor 3.1. Deactivate gift cards."""
+  """
+  New in Saleor 3.1. Deactivate gift cards. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   giftCardBulkDeactivate(
     """List of gift card IDs to deactivate."""
     ids: [ID]!
@@ -7234,7 +7326,7 @@ type Mutation {
     """
     channel: String!
 
-    """Input for External Notification Trigger. """
+    """Input for External Notification Trigger."""
     input: ExternalNotificationTriggerInput!
 
     """The ID of notification plugin."""
@@ -7375,7 +7467,9 @@ type Mutation {
     input: ExportProductsInput!
   ): ExportProducts
 
-  """New in Saleor 3.1. Export gift cards to csv file."""
+  """
+  New in Saleor 3.1. Export gift cards to csv file. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   exportGiftCards(
     """Fields required to export gift cards data."""
     input: ExportGiftCardsInput!
@@ -7635,7 +7729,7 @@ type Mutation {
   ): CheckoutShippingMethodUpdate @deprecated(reason: "This field will be removed in Saleor 4.0. Use `checkoutDeliveryMethodUpdate` instead.")
 
   """
-  New in Saleor 3.1. Updates the delivery method (shipping method or pick up point) of the checkout.
+  New in Saleor 3.1. Updates the delivery method (shipping method or pick up point) of the checkout. Note: this feature is in a preview state and can be subject to changes at later point.
   """
   checkoutDeliveryMethodUpdate(
     """Delivery Method ID (`Warehouse` ID or `ShippingMethod` ID)."""
@@ -7660,6 +7754,19 @@ type Mutation {
     """Checkout token."""
     token: UUID
   ): CheckoutLanguageCodeUpdate
+
+  """
+  Note: this feature is in a preview state and can be subject to changes at later point. Create new order from existing checkout.
+  """
+  orderCreateFromCheckout(
+    """ID of a checkout that will be converted to an order."""
+    id: ID!
+
+    """
+    Determines if checkout should be removed after creating an order. Default true.
+    """
+    removeCheckout: Boolean = true
+  ): OrderCreateFromCheckout
 
   """Creates new channel."""
   channelCreate(
@@ -8254,6 +8361,7 @@ type Order implements Node & ObjectWithMetadata {
   """List of public metadata items. Can be accessed without permissions."""
   metadata: [MetadataItem]!
   created: DateTime!
+  updatedAt: DateTime!
   status: OrderStatus!
   user: User
   trackingClientId: String!
@@ -8270,7 +8378,7 @@ type Order implements Node & ObjectWithMetadata {
   lines: [OrderLine]!
 
   """
-  List of actions that can be performed in the current state of an order.
+  This field will be removed in Saleor 4.0. Use actions on order.payments. List of actions that can be performed in the current state of an order.
   """
   actions: [OrderAction]!
 
@@ -8280,7 +8388,9 @@ type Order implements Node & ObjectWithMetadata {
   """Shipping methods related to this order."""
   shippingMethods: [ShippingMethod]
 
-  """New in Saleor 3.1. Collection points that can be used for this order."""
+  """
+  New in Saleor 3.1. Collection points that can be used for this order. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   availableCollectionPoints: [Warehouse!]!
 
   """List of order invoices."""
@@ -8358,7 +8468,9 @@ type Order implements Node & ObjectWithMetadata {
   """Returns True, if order requires shipping."""
   isShippingRequired: Boolean!
 
-  """New in Saleor 3.1. The delivery method selected for this checkout."""
+  """
+  New in Saleor 3.1. The delivery method selected for this checkout. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   deliveryMethod: DeliveryMethod
   languageCode: String! @deprecated(reason: "This field will be removed in Saleor 4.0. Use the `languageCodeEnum` field to fetch the language code. ")
 
@@ -8366,13 +8478,13 @@ type Order implements Node & ObjectWithMetadata {
   languageCodeEnum: LanguageCodeEnum!
 
   """Returns applied discount."""
-  discount: Money @deprecated(reason: "This field will be removed in Saleor 4.0. Use discounts field.")
+  discount: Money @deprecated(reason: "This field will be removed in Saleor 4.0. Use the `discounts` field instead.")
 
   """Discount name."""
-  discountName: String @deprecated(reason: "This field will be removed in Saleor 4.0. Use discounts field.")
+  discountName: String @deprecated(reason: "This field will be removed in Saleor 4.0. Use the `discounts` field instead.")
 
   """Translated discount name."""
-  translatedDiscountName: String @deprecated(reason: "This field will be removed in Saleor 4.0. Use discounts field. ")
+  translatedDiscountName: String @deprecated(reason: "This field will be removed in Saleor 4.0. Use the `discounts` field instead. ")
 
   """List of all discounts assigned to the order."""
   discounts: [OrderDiscount!]
@@ -8457,6 +8569,52 @@ type OrderCountableEdge {
 
   """A cursor for use in pagination."""
   cursor: String!
+}
+
+"""
+Note: this feature is in a preview state and can be subject to changes at later point. Create new order from existing checkout.
+"""
+type OrderCreateFromCheckout {
+  """Placed order."""
+  order: Order
+  errors: [OrderCreateFromCheckoutError!]!
+}
+
+type OrderCreateFromCheckoutError {
+  """
+  Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field.
+  """
+  field: String
+
+  """The error message."""
+  message: String
+
+  """The error code."""
+  code: OrderCreateFromCheckoutErrorCode!
+
+  """List of variant IDs which causes the error."""
+  variants: [ID!]
+
+  """List of line Ids which cause the error."""
+  lines: [ID!]
+}
+
+"""An enumeration."""
+enum OrderCreateFromCheckoutErrorCode {
+  GRAPHQL_ERROR
+  NOT_FOUND
+  CHANNEL_INACTIVE
+  INSUFFICIENT_STOCK
+  VOUCHER_NOT_APPLICABLE
+  GIFT_CARD_NOT_APPLICABLE
+  TAX_ERROR
+  SHIPPING_METHOD_NOT_SET
+  BILLING_ADDRESS_NOT_SET
+  SHIPPING_ADDRESS_NOT_SET
+  INVALID_SHIPPING_METHOD
+  NO_LINES
+  EMAIL_NOT_SET
+  UNAVAILABLE_VARIANT_IN_CHANNEL
 }
 
 enum OrderDirection {
@@ -8665,6 +8823,12 @@ type OrderEvent implements Node {
 
   """The discount applied to the order."""
   discount: OrderEventDiscountObject
+
+  """The status of payment's transaction."""
+  status: TransactionStatus
+
+  """The reference of payment's transaction."""
+  reference: String
 }
 
 type OrderEventCountableConnection {
@@ -8788,6 +8952,7 @@ input OrderFilterInput {
   search: String
   metadata: [MetadataFilter]
   channels: [ID]
+  updatedAt: DateTimeRangeInput
   isClickAndCollect: Boolean
   isPreorder: Boolean
   ids: [ID]
@@ -9101,8 +9266,22 @@ enum OrderSortField {
   """Sort orders by number."""
   NUMBER
 
-  """Sort orders by creation date."""
+  """
+  Sort orders by creation date. 
+  
+  DEPRECATED: this field will be removed in Saleor 4.0.
+  """
   CREATION_DATE
+
+  """
+  Sort orders by creation date. 
+  
+  DEPRECATED: this field will be removed in Saleor 4.0.
+  """
+  CREATED_AT
+
+  """Sort orders by last modified at."""
+  LAST_MODIFIED_AT
 
   """Sort orders by customer."""
   CUSTOMER
@@ -9441,7 +9620,7 @@ type PageTranslatableContent implements Node {
   ): PageTranslation
 
   """
-  ('A static page that can be manually added by a shop operator ', 'through the dashboard.')
+  A static page that can be manually added by a shop operator through the dashboard.
   """
   page: Page @deprecated(reason: "This field will be removed in Saleor 4.0. Get model fields from the root level queries.")
 
@@ -9642,41 +9821,71 @@ type Payment implements Node & ObjectWithMetadata {
 
   """List of public metadata items. Can be accessed without permissions."""
   metadata: [MetadataItem]!
-  gateway: String!
-  isActive: Boolean!
-  created: DateTime!
-  modified: DateTime!
-  token: String!
   checkout: Checkout
   order: Order
-  paymentMethodType: String!
-  customerIpAddress: String
-
-  """Internal payment status."""
-  chargeStatus: PaymentChargeStatusEnum!
 
   """
   List of actions that can be performed in the current state of a payment.
   """
-  actions: [OrderAction]!
+  actions: [PaymentActionEnum!]!
 
   """Total amount of the payment."""
   total: Money
 
+  """Total amount authorized for this payment."""
+  authorizedAmount: Money!
+
+  """Total amount refunded for this payment."""
+  refundedAmount: Money!
+
+  """Total amount voided for this payment."""
+  voidedAmount: Money!
+
   """Total amount captured for this payment."""
-  capturedAmount: Money
+  capturedAmount: Money!
+  gateway: String! @deprecated(reason: "This field will be removed in Saleor 4.0. Use new checkout flow.")
+  isActive: Boolean! @deprecated(reason: "This field will be removed in Saleor 4.0. Use new checkout flow.")
+  created: DateTime!
+  modified: DateTime!
+  token: String! @deprecated(reason: "This field will be removed in Saleor 4.0. Use new checkout flow.")
+  paymentMethodType: String! @deprecated(reason: "This field will be removed in Saleor 4.0. Use new checkout flow.")
+  customerIpAddress: String @deprecated(reason: "This field will be removed in Saleor 4.0. Use new checkout flow.")
+
+  """Internal payment status."""
+  chargeStatus: PaymentChargeStatusEnum! @deprecated(reason: "This field will be removed in Saleor 4.0. Use new checkout flow.")
 
   """List of all transactions within this payment."""
-  transactions: [Transaction]
+  transactions: [Transaction] @deprecated(reason: "This field will be removed in Saleor 4.0. Use new checkout flow.")
 
   """Maximum amount of money that can be captured."""
-  availableCaptureAmount: Money
+  availableCaptureAmount: Money @deprecated(reason: "This field will be removed in Saleor 4.0. Use new checkout flow.")
 
   """Maximum amount of money that can be refunded."""
-  availableRefundAmount: Money
+  availableRefundAmount: Money @deprecated(reason: "This field will be removed in Saleor 4.0. Use new checkout flow.")
 
   """The details of the card used for this payment."""
-  creditCard: CreditCard
+  creditCard: CreditCard @deprecated(reason: "This field will be removed in Saleor 4.0. Use new checkout flow.")
+  status: String!
+  type: String!
+  reference: String!
+}
+
+"""
+Represents possible actions on payment.
+
+    The following actions are possible:
+    CAPTURE - Represents the capture action.
+    REFUND - Represents a refund action.
+    VOID - Represents a void action.
+    MARK_AS_PAID - This field will be removed in Saleor 4.0. Represents a mark-as-paid
+    action.
+    
+"""
+enum PaymentActionEnum {
+  CAPTURE
+  REFUND
+  VOID
+  MARK_AS_PAID
 }
 
 """Captures the authorized payment amount."""
@@ -9736,6 +9945,68 @@ type PaymentCountableEdge {
 
   """A cursor for use in pagination."""
   cursor: String!
+}
+
+"""
+Note: this feature is in a preview state and can be subject to changes at later point. Create payment for checkout or order.
+"""
+type PaymentCreate {
+  payment: Payment
+  errors: [PaymentCreateError!]!
+}
+
+type PaymentCreateError {
+  """
+  Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field.
+  """
+  field: String
+
+  """The error message."""
+  message: String
+
+  """The error code."""
+  code: PaymentCreateErrorCode!
+}
+
+"""An enumeration."""
+enum PaymentCreateErrorCode {
+  INVALID
+  GRAPHQL_ERROR
+  NOT_FOUND
+  INCORRECT_CURRENCY
+  METADATA_KEY_REQUIRED
+}
+
+input PaymentCreateInput {
+  """Status of the payment."""
+  status: String!
+
+  """Payment type used for this payment."""
+  type: String!
+
+  """Reference of the payment."""
+  reference: String
+
+  """List of all possible actions for the payment"""
+  availableActions: [PaymentActionEnum!]
+
+  """Amount authorized by this payment."""
+  amountAuthorized: MoneyInput
+
+  """Amount captured by this payment."""
+  amountCaptured: MoneyInput
+
+  """Amount refunded by this payment."""
+  amountRefunded: MoneyInput
+
+  """Amount refunded by this payment."""
+  amountVoided: MoneyInput
+
+  """User public metadata."""
+  metadata: [MetadataInput!]
+
+  """User public metadata."""
+  privateMetadata: [MetadataInput!]
 }
 
 type PaymentError {
@@ -9868,6 +10139,68 @@ type PaymentSource {
   New in Saleor 3.1. List of public metadata items. Can be accessed without permissions.
   """
   metadata: [MetadataItem]!
+}
+
+"""
+Note: this feature is in a preview state and can be subject to changes at later point. Create payment for checkout or order.
+"""
+type PaymentUpdate {
+  payment: Payment
+  errors: [PaymentUpdateError!]!
+}
+
+type PaymentUpdateError {
+  """
+  Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field.
+  """
+  field: String
+
+  """The error message."""
+  message: String
+
+  """The error code."""
+  code: PaymentUpdateErrorCode!
+}
+
+"""An enumeration."""
+enum PaymentUpdateErrorCode {
+  INVALID
+  GRAPHQL_ERROR
+  NOT_FOUND
+  INCORRECT_CURRENCY
+  METADATA_KEY_REQUIRED
+}
+
+input PaymentUpdateInput {
+  """Status of the payment."""
+  status: String
+
+  """Payment type used for this payment."""
+  type: String
+
+  """Reference of the payment."""
+  reference: String
+
+  """List of all possible actions for the payment"""
+  availableActions: [PaymentActionEnum!]
+
+  """Amount authorized by this payment."""
+  amountAuthorized: MoneyInput
+
+  """Amount captured by this payment."""
+  amountCaptured: MoneyInput
+
+  """Amount refunded by this payment."""
+  amountRefunded: MoneyInput
+
+  """Amount refunded by this payment."""
+  amountVoided: MoneyInput
+
+  """User public metadata."""
+  metadata: [MetadataInput!]
+
+  """User public metadata."""
+  privateMetadata: [MetadataInput!]
 }
 
 """Voids the authorized payment."""
@@ -10198,7 +10531,8 @@ type Product implements Node & ObjectWithMetadata {
   productType: ProductType!
   slug: String!
   category: Category
-  updatedAt: DateTime
+  created: DateTime!
+  updatedAt: DateTime!
   chargeTaxes: Boolean!
   weight: Weight
   defaultVariant: ProductVariant
@@ -10275,7 +10609,7 @@ type Product implements Node & ObjectWithMetadata {
     languageCode: LanguageCodeEnum!
   ): ProductTranslation
 
-  """Date when product is available for purchase. """
+  """Date when product is available for purchase."""
   availableForPurchase: Date
 
   """Whether the product is available for purchase."""
@@ -10584,6 +10918,7 @@ input ProductFilterInput {
   metadata: [MetadataFilter]
   price: PriceRangeInput
   minimalPrice: PriceRangeInput
+  updatedAt: DateTimeRangeInput
   productTypes: [ID]
   giftCard: Boolean
   ids: [ID]
@@ -10739,7 +11074,7 @@ input ProductOrder {
   direction: OrderDirection!
 
   """
-  Specifies the channel in which to sort the data. 
+  Specifies the channel in which to sort the data.
   
   DEPRECATED: this field will be removed in Saleor 4.0. Use root-level channel argument instead.
   """
@@ -10769,6 +11104,9 @@ enum ProductOrderField {
   MINIMAL_PRICE
 
   """Sort products by update date."""
+  LAST_MODIFIED
+
+  """Sort products by update date."""
   DATE
 
   """Sort products by type."""
@@ -10779,6 +11117,12 @@ enum ProductOrderField {
 
   """Sort products by publication date."""
   PUBLICATION_DATE
+
+  """Sort products by publication date."""
+  PUBLISHED_AT
+
+  """Sort products by update date."""
+  LAST_MODIFIED_AT
 
   """
   Sort products by collection. Note: This option is available only for the `Collection.products` query.
@@ -11187,8 +11531,12 @@ type ProductVariant implements Node & ObjectWithMetadata {
     countryCode: CountryCode
   ): Int
 
-  """New in Saleor 3.1. Preorder data for product variant."""
+  """
+  New in Saleor 3.1. Preorder data for product variant. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   preorder: PreorderData
+  created: DateTime!
+  updatedAt: DateTime!
 }
 
 """Creates product variants for a given product."""
@@ -11217,11 +11565,13 @@ input ProductVariantBulkCreateInput {
   """Weight of the Product Variant."""
   weight: WeightScalar
 
-  """New in Saleor 3.1. Determines if variant is in preorder."""
+  """
+  New in Saleor 3.1. Determines if variant is in preorder. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   preorder: PreorderSettingsInput
 
   """
-  New in Saleor 3.1. Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout.
+  New in Saleor 3.1. Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout. Note: this feature is in a preview state and can be subject to changes at later point.
   """
   quantityLimitPerCustomer: Int
 
@@ -11252,7 +11602,9 @@ type ProductVariantChannelListing implements Node {
   """Gross margin percentage value."""
   margin: Int
 
-  """New in Saleor 3.1. Preorder variant data."""
+  """
+  New in Saleor 3.1. Preorder variant data. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   preorderThreshold: PreorderThreshold
 }
 
@@ -11266,7 +11618,9 @@ input ProductVariantChannelListingAddInput {
   """Cost price of the variant in channel."""
   costPrice: PositiveDecimal
 
-  """New in Saleor 3.1. The threshold for preorder variant in channel."""
+  """
+  New in Saleor 3.1. The threshold for preorder variant in channel. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   preorderThreshold: Int
 }
 
@@ -11317,11 +11671,13 @@ input ProductVariantCreateInput {
   """Weight of the Product Variant."""
   weight: WeightScalar
 
-  """New in Saleor 3.1. Determines if variant is in preorder."""
+  """
+  New in Saleor 3.1. Determines if variant is in preorder. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   preorder: PreorderSettingsInput
 
   """
-  New in Saleor 3.1. Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout.
+  New in Saleor 3.1. Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout. Note: this feature is in a preview state and can be subject to changes at later point.
   """
   quantityLimitPerCustomer: Int
 
@@ -11344,6 +11700,7 @@ input ProductVariantFilterInput {
   sku: [String]
   metadata: [MetadataFilter]
   isPreorder: Boolean
+  updatedAt: DateTimeRangeInput
 }
 
 input ProductVariantInput {
@@ -11361,17 +11718,19 @@ input ProductVariantInput {
   """Weight of the Product Variant."""
   weight: WeightScalar
 
-  """New in Saleor 3.1. Determines if variant is in preorder."""
+  """
+  New in Saleor 3.1. Determines if variant is in preorder. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   preorder: PreorderSettingsInput
 
   """
-  New in Saleor 3.1. Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout.
+  New in Saleor 3.1. Determines maximum quantity of `ProductVariant`,that can be bought in a single checkout. Note: this feature is in a preview state and can be subject to changes at later point.
   """
   quantityLimitPerCustomer: Int
 }
 
 """
-New in Saleor 3.1. Deactivates product variant preorder.It changes all preorder allocation into regular allocation.
+New in Saleor 3.1. Deactivates product variant preorder. It changes all preorder allocation into regular allocation. Note: this feature is in a preview state and can be subject to changes at later point.
 """
 type ProductVariantPreorderDeactivate {
   """Product variant with ended preorder."""
@@ -11403,6 +11762,19 @@ type ProductVariantSetDefault {
   product: Product
   productErrors: [ProductError!]! @deprecated(reason: "This field will be removed in Saleor 4.0. Use `errors` field instead.")
   errors: [ProductError!]!
+}
+
+enum ProductVariantSortField {
+  """Sort products variants by last modified at."""
+  LAST_MODIFIED_AT
+}
+
+input ProductVariantSortingInput {
+  """Specifies the direction in which to sort products."""
+  direction: OrderDirection!
+
+  """Sort productVariants by the selected field."""
+  field: ProductVariantSortField!
 }
 
 """Creates stocks for product variant."""
@@ -11784,6 +12156,9 @@ type Query {
     """Filtering options for product variant."""
     filter: ProductVariantFilterInput
 
+    """Sort products variants."""
+    sortBy: ProductVariantSortingInput
+
     """Return the elements in the list that come before the specified cursor."""
     before: String
 
@@ -12062,10 +12437,14 @@ type Query {
 
   """List of gift cards."""
   giftCards(
-    """New in Saleor 3.1. Sort gift cards."""
+    """
+    New in Saleor 3.1. Sort gift cards. Note: this feature is in a preview state and can be subject to changes at later point.
+    """
     sortBy: GiftCardSortingInput
 
-    """New in Saleor 3.1. Filtering options for gift cards."""
+    """
+    New in Saleor 3.1. Filtering options for gift cards. Note: this feature is in a preview state and can be subject to changes at later point.
+    """
     filter: GiftCardFilterInput
 
     """Return the elements in the list that come before the specified cursor."""
@@ -12081,10 +12460,14 @@ type Query {
     last: Int
   ): GiftCardCountableConnection
 
-  """New in Saleor 3.1. List of gift card currencies."""
+  """
+  New in Saleor 3.1. List of gift card currencies. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   giftCardCurrencies: [String!]!
 
-  """{ADDED_IN_31} List of gift card tags."""
+  """
+  New in Saleor 3.1. List of gift card tags. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   giftCardTags(
     """Filtering options for gift card tags."""
     filter: GiftCardTagFilterInput
@@ -12358,7 +12741,9 @@ type Query {
     id: ID
   ): App
 
-  """New in Saleor 3.1. List of all extensions"""
+  """
+  New in Saleor 3.1. List of all extensions. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   appExtensions(
     """Filtering options for apps extensions."""
     filter: AppExtensionFilterInput
@@ -12376,7 +12761,9 @@ type Query {
     last: Int
   ): AppExtensionCountableConnection
 
-  """New in Saleor 3.1. Look up an app extension by ID."""
+  """
+  New in Saleor 3.1. Look up an app extension by ID. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   appExtension(
     """ID of the app extension."""
     id: ID!
@@ -12555,6 +12942,8 @@ type Sale implements Node & ObjectWithMetadata {
   type: SaleType!
   startDate: DateTime!
   endDate: DateTime
+  created: DateTime!
+  updatedAt: DateTime!
 
   """List of categories this sale applies to."""
   categories(
@@ -12717,6 +13106,7 @@ input SaleFilterInput {
   started: DateTimeRangeInput
   search: String
   metadata: [MetadataFilter]
+  updatedAt: DateTimeRangeInput
 }
 
 input SaleInput {
@@ -12769,6 +13159,12 @@ enum SaleSortField {
 
   """Sort sales by type."""
   TYPE
+
+  """Sort sales by created at."""
+  CREATED_AT
+
+  """Sort sales by last modified at."""
+  LAST_MODIFIED_AT
 }
 
 input SaleSortingInput {
@@ -12776,7 +13172,7 @@ input SaleSortingInput {
   direction: OrderDirection!
 
   """
-  Specifies the channel in which to sort the data. 
+  Specifies the channel in which to sort the data.
   
   DEPRECATED: this field will be removed in Saleor 4.0. Use root-level channel argument instead.
   """
@@ -12897,7 +13293,7 @@ enum ShippingErrorCode {
 }
 
 """
-('Shipping methods that can be used as means of shippingfor orders and checkouts.',)
+Shipping methods that can be used as means of shipping for orders and checkouts.
 """
 type ShippingMethod implements Node & ObjectWithMetadata {
   """Unique ID of ShippingMethod available for Order."""
@@ -13483,7 +13879,7 @@ type Shop {
   reserveStockDurationAuthenticatedUser: Int
 
   """
-  New in Saleor 3.1. Default number of maximum line quantity in single checkout (per single checkout line).
+  New in Saleor 3.1. Default number of maximum line quantity in single checkout (per single checkout line). Note: this feature is in a preview state and can be subject to changes at later point.
   """
   limitQuantityPerCheckout: Int
 
@@ -13618,7 +14014,7 @@ input ShopSettingsInput {
   reserveStockDurationAuthenticatedUser: Int
 
   """
-  New in Saleor 3.1. Default number of maximum line quantity in single checkout. Minimum possible value is 1, default value is 50.
+  New in Saleor 3.1. Default number of maximum line quantity in single checkout. Minimum possible value is 1, default value is 50. Note: this feature is in a preview state and can be subject to changes at later point.
   """
   limitQuantityPerCheckout: Int
 }
@@ -13991,6 +14387,17 @@ type Transaction implements Node {
   amount: Money
 }
 
+input TransactionInput {
+  """Current status of the payment transaction."""
+  status: TransactionStatus!
+
+  """Reference of the transaction."""
+  reference: String
+
+  """Name of the transaction."""
+  name: String
+}
+
 """An enumeration."""
 enum TransactionKind {
   EXTERNAL
@@ -14003,6 +14410,13 @@ enum TransactionKind {
   VOID
   CONFIRM
   CANCEL
+}
+
+"""An enumeration."""
+enum TransactionStatus {
+  PENDING
+  SUCCESS
+  FAILURE
 }
 
 union TranslatableItem = ProductTranslatableContent | CollectionTranslatableContent | CategoryTranslatableContent | AttributeTranslatableContent | AttributeValueTranslatableContent | ProductVariantTranslatableContent | PageTranslatableContent | ShippingMethodTranslatableContent | SaleTranslatableContent | VoucherTranslatableContent | MenuItemTranslatableContent
@@ -14134,7 +14548,7 @@ type User implements Node & ObjectWithMetadata {
   addresses: [Address]
 
   """Returns the last open checkout of this user."""
-  checkout: Checkout @deprecated(reason: "This field will be removed in Saleor 4.0. Use the `checkout_tokens` field to fetch the user checkouts.")
+  checkout: Checkout @deprecated(reason: "This field will be removed in Saleor 4.0. Use the `checkoutTokens` field to fetch the user checkouts.")
 
   """Returns the checkout UUID's assigned to this user."""
   checkoutTokens(
@@ -14203,6 +14617,7 @@ type User implements Node & ObjectWithMetadata {
   defaultBillingAddress: Address
   lastLogin: DateTime
   dateJoined: DateTime!
+  updatedAt: DateTime!
 }
 
 """Deletes a user avatar. Only for staff members."""
@@ -14310,6 +14725,12 @@ enum UserSortField {
 
   """Sort users by order count."""
   ORDER_COUNT
+
+  """Sort users by created at."""
+  CREATED_AT
+
+  """Sort users by last modified at."""
+  LAST_MODIFIED_AT
 }
 
 input UserSortingInput {
@@ -14702,7 +15123,7 @@ input VoucherSortingInput {
   direction: OrderDirection!
 
   """
-  Specifies the channel in which to sort the data. 
+  Specifies the channel in which to sort the data.
   
   DEPRECATED: this field will be removed in Saleor 4.0. Use root-level channel argument instead.
   """
@@ -14776,7 +15197,9 @@ type Warehouse implements Node & ObjectWithMetadata {
   """Warehouse company name."""
   companyName: String! @deprecated(reason: "This field will be removed in Saleor 4.0. Use `Address.companyName` instead.")
 
-  """New in Saleor 3.1. Click and collect options: local, all or disabled"""
+  """
+  New in Saleor 3.1. Click and collect options: local, all or disabled. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   clickAndCollectOption: WarehouseClickAndCollectOptionEnum!
   shippingZones(
     """Return the elements in the list that come before the specified cursor."""
@@ -14925,10 +15348,14 @@ input WarehouseUpdateInput {
   """Address of the warehouse."""
   address: AddressInput
 
-  """New in Saleor 3.1. Click and collect options: local, all or disabled"""
+  """
+  New in Saleor 3.1. Click and collect options: local, all or disabled. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   clickAndCollectOption: WarehouseClickAndCollectOptionEnum
 
-  """New in Saleor 3.1. Visibility of warehouse stocks"""
+  """
+  New in Saleor 3.1. Visibility of warehouse stocks. Note: this feature is in a preview state and can be subject to changes at later point.
+  """
   isPrivate: Boolean
 }
 
@@ -15220,6 +15647,8 @@ enum WebhookEventTypeEnum {
   PAYMENT_REFUND
   PAYMENT_VOID
   SHIPPING_LIST_METHODS_FOR_CHECKOUT
+  ORDER_FILTER_SHIPPING_METHODS
+  CHECKOUT_FILTER_SHIPPING_METHODS
 }
 
 """Enum determining type of webhook."""
@@ -15232,6 +15661,8 @@ enum WebhookEventTypeSyncEnum {
   PAYMENT_REFUND
   PAYMENT_VOID
   SHIPPING_LIST_METHODS_FOR_CHECKOUT
+  ORDER_FILTER_SHIPPING_METHODS
+  CHECKOUT_FILTER_SHIPPING_METHODS
 }
 
 """An enumeration."""
@@ -15333,11 +15764,13 @@ enum WeightUnitsEnum {
   TONNE
 }
 
-"""Anything"""
+"""_Any value scalar as defined by Federation spec."""
 scalar _Any
 
+"""_Entity union as defined by Federation spec."""
 union _Entity = App | Address | User | Group | ProductVariant | Product | ProductType | Collection | Category | ProductMedia | PageType
 
+"""_Service manifest as defined by Federation spec."""
 type _Service {
   sdl: String
 }
