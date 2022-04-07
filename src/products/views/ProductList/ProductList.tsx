@@ -45,7 +45,6 @@ import {
   isAttributeColumnValue
 } from "@saleor/products/components/ProductListPage/utils";
 import {
-  productAddUrl,
   productListUrl,
   ProductListUrlDialog,
   ProductListUrlQueryParams,
@@ -395,7 +394,6 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
             availableInGridAttributes.data.availableInGrid.pageInfo.hasNextPage,
           false
         )}
-        addHref={productAddUrl()}
         disabled={loading}
         limits={limitOpts.data?.shop.limits}
         products={mapEdgesToItems(data?.products)}
@@ -459,7 +457,6 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
         initialSearch={params.query || ""}
         tabs={getFilterTabs().map(tab => tab.name)}
         onExport={() => openModal("export")}
-        channelsCount={availableChannels?.length}
         selectedChannelId={selectedChannel?.id}
       />
       <ActionDialog
