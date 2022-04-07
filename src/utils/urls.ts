@@ -19,3 +19,5 @@ export function getArrayQueryParam(param: string | string[]): string[] {
 
   return [param];
 }
+
+export const isExternalURL = url => /^https?:\/\//.test(url);
